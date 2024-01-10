@@ -1,7 +1,9 @@
 #include <iostream>
 
+enum class Action { Unset, AddURL, CheckURL, };
+
 int main() {
-	std::cout << "Hello World" << std::endl;
+	Action action = Action::Unset;
 
 	return 0;
 }
