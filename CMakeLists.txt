@@ -22,6 +22,7 @@ set(TEST_FILES
 	tests/test_main.cpp # this is the main for tests
 )
 
+add_executable(Foobar ${SOURCE_FILES})
 add_executable(CalcTests ${TEST_FILES})
 
 # Link Google Test to the test executable
