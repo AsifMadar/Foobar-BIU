@@ -3,15 +3,19 @@ class BloomFilter{
 private:
 int numOfHashesFirstFun;
 int numOfHashesSecondFun;
-int[] bitArray;
+int* bitArray;
 public:
 // initializing the BloomFilter instance.
-BloomFilter(int size, int numOfHashesFirstFun, numOfHashesSecondFun) {
+BloomFilter(int size, int numOfHashesFirstFun, int numOfHashesSecondFun) {
     bitArray = new int[size];
-    this.numOfHashesFirstFun = numOfHashesFirstFun;
-    this.numOfHashesSecondFun = numOfHashesSecondFun;
+    this->numOfHashesFirstFun = numOfHashesFirstFun;
+    this->numOfHashesSecondFun = numOfHashesSecondFun;
 }
-void addItem(String url) {
+//destructor
+~BloomFilter(){
+    delete[] bitArray;
+}
+void addItem(std::string url) {
     
 }
 };
