@@ -1,3 +1,4 @@
+#include <string>
 class BloomFilter{
 private:
 int numOfHashesFirstFun;
@@ -10,5 +11,7 @@ BloomFilter(int size, int numOfHashesFirstFun, numOfHashesSecondFun) {
     this.numOfHashesFirstFun = numOfHashesFirstFun;
     this.numOfHashesSecondFun = numOfHashesSecondFun;
 }
-
+void addItem(String url) {
+    
+}
 };
