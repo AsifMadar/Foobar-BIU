@@ -11,13 +11,16 @@
 /// @param maxNums The maximum amount of numbers that has to exist in the same input line to consider it valid (inclusive). Defaults to 0 (unrestricted).
 /// @return The function returns 0 if a valid line was found and -1 otherwise.
 int readLineNumbers(std::istream& input, std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0) {
+	// Read each line separately until the end of the input stream. When a valid line is found, the loop will break.
 	while (!input.eof()) {
 		iVector->clear();
 
+		// Extract the next line from the input stream into its own stream
 		std::string line;
 		std::getline(input, line);
 		std::stringstream lineStream(line);
 
+		// Read numbers until the end of the line, and stop early if invalid input was provided
 		for (char nextChar = lineStream.peek(); nextChar != EOF && !lineStream.fail(); nextChar = lineStream.peek()) {
 			int n;
 			lineStream >> n;
