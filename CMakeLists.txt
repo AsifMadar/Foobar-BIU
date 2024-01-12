@@ -21,6 +21,7 @@ set(SOURCE_FILES
 set(TEST_FILES
 	tests/test_main.cpp # this is the main for tests
 	tests/addItem_test.cpp
+ 	tests/userInput_test.cpp
 )
 
 add_executable(Foobar ${SOURCE_FILES})
