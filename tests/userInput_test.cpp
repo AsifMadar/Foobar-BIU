@@ -68,3 +68,20 @@ TEST(ReadLineNumbersTest, ReturnValue) {
 	ASSERT_EQ(readLineNumbers(dummyIStream, vec, 2), 0);
 	ASSERT_EQ(readLineNumbers(dummyIStream, vec, 2), -1);
 }
+
+TEST(ReadLineNumbersTest, TrailingWhitespace) {
+	std::istringstream dummyIStream("1 2 \n 5 \n2 a ");
+	std::vector<int>* vec = new std::vector<int>;
+
+	readLineNumbers(dummyIStream, vec);
+	ASSERT_EQ((*vec)[0], 1);
+	ASSERT_EQ((*vec)[1], 2);
+	ASSERT_EQ(vec->size(), 2);
+
+	readLineNumbers(dummyIStream, vec);
+	ASSERT_EQ((*vec)[0], 5);
+	ASSERT_EQ(vec->size(), 1);
+
+	readLineNumbers(dummyIStream, vec);
+	ASSERT_EQ(vec->size(), 0);
+}

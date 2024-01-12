@@ -24,14 +24,24 @@ int readLineNumbers(std::istream& input, std::vector<int>* iVector, unsigned sho
 		for (char nextChar = lineStream.peek(); nextChar != EOF && !lineStream.fail(); nextChar = lineStream.peek()) {
 			int n;
 			lineStream >> n;
-			iVector->push_back(n);
+
+			/* If the input contains trailing whitespace, the last iteration will fail. In this case, the assignment to
+				`n` will consume the trailing whitespace. We still want `lineStream.eof()` to return `true` in this
+				case, so we try to read another character from the stream to trigger the `eofbit`. */
+			if (lineStream.fail()) {
+				lineStream.get(nextChar);
+				break;
+			} else {
+				iVector->push_back(n);
+			}
 		}
 
 		/* Since `lineStream` only contains one line, we know it ended when the next char is EOF. However,
 			if we failed before reaching EOF, then we know the line was invalid and continue to the next line. */
-		int vecSize = iVector->size();
-		if (lineStream.eof() && minNums <= vecSize && (vecSize <= maxNums || maxNums == 0)) return 0;
+		if (lineStream.eof() && minNums <= iVector->size() && (iVector->size() <= maxNums || maxNums == 0)) return 0;
 	}
 
+	// The read failed. Clear the vector and return -1
+	iVector->clear();
 	return -1;
 }
