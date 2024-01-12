@@ -14,7 +14,6 @@ std::vector<int> getBitArray() {
 return this->bitArray;
 }
 int getNumOfHashesFirstFun() {
-
 return this->numOfHashesFirstFun;
 }
 int getNumOfHashesSecondFun() {
