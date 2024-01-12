@@ -19,7 +19,7 @@ set(SOURCE_FILES
 )
 
 set(TEST_FILES
-	tests/test_main.cpp # this is the main for tests
+	tests/test_main.cpp
 	tests/addItem_test.cpp
  	tests/userInput_test.cpp
 )
