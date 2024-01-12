@@ -1,14 +1,11 @@
-class BloomFilter{
+#include <string>
+#include <vector>
+class BloomFilter {
 private:
 int numOfHashesFirstFun;
 int numOfHashesSecondFun;
-int[] bitArray;
+std::vector<int> bitArray;
 public:
 // initializing the BloomFilter instance.
-BloomFilter(int size, int numOfHashesFirstFun, numOfHashesSecondFun) {
-    bitArray = new int[size];
-    this.numOfHashesFirstFun = numOfHashesFirstFun;
-    this.numOfHashesSecondFun = numOfHashesSecondFun;
-}
-
+BloomFilter(int size, int numOfHashesFirstFun, int numOfHashesSecondFun) : bitArray(size),  numOfHashesFirstFun(numOfHashesFirstFun), numOfHashesSecondFun(numOfHashesSecondFun) {}
 };
