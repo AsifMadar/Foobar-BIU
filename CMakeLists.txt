@@ -23,6 +23,7 @@ set(TEST_FILES
 	tests/test_main.cpp
  	tests/addItem_test.cpp
 	tests/userInput_test.cpp
+	tests/getItem_test.cpp
 )
 
 add_executable(Foobar ${SOURCE_FILES})
