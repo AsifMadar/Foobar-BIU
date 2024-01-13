@@ -33,8 +33,20 @@ TEST(ConstructorTest, CopyBitArray) {
         ASSERT_EQ(bloom.getBitArray()[0], 0);
 }
 
-TEST(AddItem, checkIfNotEmpty) {
+TEST(AddItem, checkIfNotEmpty1) {
     BloomFilter bloom(10, 1, 1);
     bloom.addItem("helloWorld");
+    ASSERT_EQ(isNotEmpty(bloom.getBitArray()), 1);
+    }
+
+TEST(AddItem, checkIfNotEmpty2) {
+    BloomFilter bloom(150, 2, 10);
+    bloom.addItem("helloworld");
+    ASSERT_EQ(isNotEmpty(bloom.getBitArray()), 1);
+    }
+
+TEST(AddItem, checkIfNotEmpty3) {
+    BloomFilter bloom(10, 30, 300);
+    bloom.addItem("hello World");
     ASSERT_EQ(isNotEmpty(bloom.getBitArray()), 1);
     }
