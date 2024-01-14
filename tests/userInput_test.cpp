@@ -148,19 +148,19 @@ TEST(GetUserActionAndURLTest, ValidInput) {
 	int a;
 	std::string str;
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 1);
 	ASSERT_EQ(str, "hi");
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 2);
 	ASSERT_EQ(str, "www.example.com");
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 2);
 	ASSERT_EQ(str, "https://www.example.com");
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 1);
 	ASSERT_EQ(str, "12");
 }
@@ -170,23 +170,50 @@ TEST(GetUserActionAndURLTest, InvalidInput) {
 	int a;
 	std::string str;
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 1);
 	ASSERT_EQ(str, "hi");
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 2);
 	ASSERT_EQ(str, "hi");
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 1);
 	ASSERT_EQ(str, "www.example.com");
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 2);
 	ASSERT_EQ(str, "https://www.example.com");
 
-	getUserActionAndURL(dummyIStream, &a, &str);
+	getUserActionAndURL(dummyIStream, &a, &str, 3);
 	ASSERT_EQ(a, 2);
 	ASSERT_EQ(str, "f");
+}
+
+TEST(GetUserActionAndURLTest, MaxNumber) {
+	std::istringstream dummyIStream("51 www.example.com\n5 www.example.com\n2 https://www.example.com\n1  \n12 f");
+	int a;
+	std::string str;
+
+	getUserActionAndURL(dummyIStream, &a, &str, 10);
+	ASSERT_EQ(a, 5);
+	ASSERT_EQ(str, "www.example.com");
+
+	getUserActionAndURL(dummyIStream, &a, &str, 13);
+	ASSERT_EQ(a, 2);
+	ASSERT_EQ(str, "https://www.example.com");
+
+	getUserActionAndURL(dummyIStream, &a, &str, 13);
+	ASSERT_EQ(a, 12);
+	ASSERT_EQ(str, "f");
+}
+
+TEST(GetUserActionAndURLTest, ReturnValue) {
+	std::istringstream dummyIStream("1 www.example.com\n5\n a\n");
+	int a;
+	std::string str;
+
+	ASSERT_EQ(getUserActionAndURL(dummyIStream, &a, &str, 3), 0);
+	ASSERT_EQ(getUserActionAndURL(dummyIStream, &a, &str, 3), -1);
 }
