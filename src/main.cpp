@@ -7,13 +7,37 @@
 #include "./userInput.h"
 
 enum class Action { Unset, AddURL, CheckURL, };
+const int maxValidAction = 2;
 
 void createBloomFilter();
 
 int main() {
-	Action action = Action::Unset;
 	createBloomFilter();
 	std::vector<std::string> blackList = {}; // Will be used to validate suspected false-positives
+
+	while (true) { // This is the main loop of the program
+		Action action = Action::Unset;
+		int actionNumber;
+		std::string url;
+		bool failure = getUserActionAndURL(std::cin, &actionNumber, &url, maxValidAction + 1) == -1;
+		if (failure) throw std::runtime_error("No valid input was provided");
+		action = Action(actionNumber);
+
+		switch (action) {
+			case Action::AddURL:
+				// Implement addURL() first
+				//addURL(&bloomFilter, &blackList, url);
+				break;
+
+			case Action::CheckURL:
+				// Implement checkURL() first
+				//CheckResult checkResult = checkURL(&bloomFilter, &blackList, url);
+				break;
+			
+			default:
+				break;
+		}
+	}
 
 	return 0;
 }
@@ -22,7 +46,7 @@ int main() {
 void createBloomFilter() {
 	// Get the settings for the bloom filter
 	std::vector<int> settingsVec = {};
-	bool failure = getFilterSettings(std::cin, &settingsVec, hashFuncs::functionsNum + 1);
+	bool failure = getFilterSettings(std::cin, &settingsVec, hashFuncs::functionsNum + 1) == -1;
 	if (failure) throw std::runtime_error("No valid input was provided");
 
 	int bloomBitArrayLength = settingsVec[0];
