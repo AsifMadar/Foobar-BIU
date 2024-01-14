@@ -9,6 +9,11 @@
 enum class Action { Unset, AddURL, CheckURL, };
 const int maxValidAction = 2;
 
+// Waiting for BloomFilter.h
+/* enum class CheckURLResult { Unset, AddURL, CheckURL, };
+
+CheckURLResult checkURL(BloomFilter* bloomFilter, std::vector<std::string> blackList, std::string url); */
+
 void createBloomFilter();
 
 int main() {
@@ -31,7 +36,7 @@ int main() {
 
 			case Action::CheckURL:
 				// Implement checkURL() first
-				//CheckResult checkResult = checkURL(&bloomFilter, &blackList, url);
+				//CheckURLResult checkResult = checkURL(&bloomFilter, &blackList, url);
 				break;
 			
 			default:
