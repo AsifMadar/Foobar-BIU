@@ -73,3 +73,34 @@ int getFilterSettings(std::istream& input, std::vector<int>* settingsVec, int ma
 		if (valid2ndParam && valid3ndParam) return 0;
 	}
 }
+
+/// @brief Reads lines from the provided input stream until a line that contains a number which is either 1 or 2 followed
+/// 	by a non-whitespace characters is found. Then, puts that number into the provided `actionNumber`, and the rest of
+/// 	the line (ignoreing the leading whitespace) into the `url`.
+/// 	If no valid lines were found in the input stream, the function will return -1.
+/// @param input An input stream reference
+/// @param actionNumber A pointer to an integer
+/// @param url A pointer to a string
+/// @return The function returns 0 if a valid line was found and -1 otherwise.
+int getUserActionAndURL(std::istream& input, int* actionNumber, std::string* url) {
+	// Read each line separately until the end of the input stream. When a valid line is found, the loop will break.
+	while (!input.eof()) {
+		// Extract the next line from the input stream into its own stream
+		std::string line;
+		std::getline(input, line);
+		std::stringstream lineStream(line);
+
+		int action;
+		if (lineStream >> action) {
+			std::string actionStr;
+			if (1 <= action && action <= 2 && lineStream >> actionStr) {
+				// If both reads were successfull, update pointed variables and return 0
+				*actionNumber = action;
+				*url = actionStr;
+				return 0;
+			}
+		}
+	}
+
+	return -1;
+}

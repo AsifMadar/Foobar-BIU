@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include <sstream>
+#include <string>
 #include "../src/userInput.cpp"
 
 TEST(ReadLineNumbersTest, ValidInput) {
@@ -139,4 +141,52 @@ TEST(GetFilterSettingsTest, TrailingWhitespace) {
 
 	getFilterSettings(dummyIStream, &vec, 2);
 	ASSERT_EQ(vec.size(), 0);
+}
+
+TEST(GetUserActionAndURLTest, ValidInput) {
+	std::istringstream dummyIStream("1 hi\n2 www.example.com\n2 https://www.example.com\n1 12");
+	int a;
+	std::string str;
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 1);
+	ASSERT_EQ(str, "hi");
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 2);
+	ASSERT_EQ(str, "www.example.com");
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 2);
+	ASSERT_EQ(str, "https://www.example.com");
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 1);
+	ASSERT_EQ(str, "12");
+}
+
+TEST(GetUserActionAndURLTest, InvalidInput) {
+	std::istringstream dummyIStream("11 \n 1 hi\n2 hi\n5 hi\n0 hi\n1 www.example.com\n2 https://www.example.com\n1  \n2 f");
+	int a;
+	std::string str;
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 1);
+	ASSERT_EQ(str, "hi");
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 2);
+	ASSERT_EQ(str, "hi");
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 1);
+	ASSERT_EQ(str, "www.example.com");
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 2);
+	ASSERT_EQ(str, "https://www.example.com");
+
+	getUserActionAndURL(dummyIStream, &a, &str);
+	ASSERT_EQ(a, 2);
+	ASSERT_EQ(str, "f");
 }
