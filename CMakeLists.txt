@@ -15,6 +15,7 @@ FetchContent_Declare(
 enable_testing()
 
 set(SOURCE_FILES
+	src/hashFuncs.cpp
 	src/main.cpp
 	src/userInput.cpp
 )
@@ -27,13 +28,16 @@ set(TEST_FILES
 )
 
 add_executable(Foobar ${SOURCE_FILES})
-add_executable(CalcTests ${TEST_FILES})
+add_executable(FoobarDebugBuild ${SOURCE_FILES})
+add_executable(FoobarTests ${TEST_FILES})
+
+target_compile_options(FoobarDebugBuild PRIVATE "-g" "-O0")
 
 # Link Google Test to the test executable
-target_link_libraries(CalcTests PRIVATE gtest gtest_main)
+target_link_libraries(FoobarTests PRIVATE gtest gtest_main)
 
 # Include the source directory for tests
-target_include_directories(CalcTests PRIVATE src)
+target_include_directories(FoobarTests PRIVATE src)
 
 include(GoogleTest)
-add_test(NAME CalcTests COMMAND CalcTests)
+add_test(NAME FoobarTests COMMAND FoobarTests)
