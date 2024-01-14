@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
 
 /// @brief Reads lines from the provided input stream until a line that contains only numbers is found.
@@ -63,13 +64,15 @@ bool isInRange(int x, int min, int max) {
 /// @param maxIdVal The maximum value for each of the parameters after the first one (exclusive), and the maximum amuont of numbers that is considered valid (inclusive).
 /// @return The function returns 0 if a valid line was found and -1 otherwise.
 int getFilterSettings(std::istream& input, std::vector<int>* settingsVec, int maxIdVal) {
-	/* Continue reading lines until we find a line with 2-3 numbers, and the second and third (if it exists) are both in range */
+	/* Continue reading lines until we find a line with enough numbers, and the non-first numbers are all in range */
 	while (true) {
 		bool failure = readLineNumbers(input, settingsVec, 2, maxIdVal) == -1;
 		if (failure) return -1; // `readLineNumbers()` has already cleared `settingsVec`
 
-		bool valid2ndParam = isInRange((*settingsVec)[1], 1, maxIdVal);
-		bool valid3ndParam = (*settingsVec).size() < 3 || isInRange((*settingsVec)[2], 1, maxIdVal);
-		if (valid2ndParam && valid3ndParam) return 0;
+		bool valid = true;
+		for (int i = 1; i < maxIdVal && valid; i++) {
+			valid = settingsVec->size() < i+1 || isInRange((*settingsVec)[i], 1, maxIdVal);
+		}
+		if (valid) return 0;
 	}
 }
