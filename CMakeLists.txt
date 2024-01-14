@@ -15,6 +15,7 @@ FetchContent_Declare(
 enable_testing()
 
 set(SOURCE_FILES
+	src/hashFuncs.cpp
 	src/main.cpp
 	src/userInput.cpp
 )
