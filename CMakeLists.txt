@@ -17,13 +17,13 @@ enable_testing()
 set(SOURCE_FILES
 	src/HashFuncs.cpp
 	src/main.cpp
-	src/userInput.cpp
+	src/UserInput.cpp
 )
 
 set(TEST_FILES
 	tests/HashFuncs_test.cpp
 	tests/test_main.cpp
-	tests/userInput_test.cpp
+	tests/UserInput_test.cpp
  	tests/addItem_test.cpp
 )
 

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include "./HashFuncs.h"
-#include "./userInput.h"
+#include "./UserInput.h"
 
 enum class Action { Unset, AddURL, CheckURL, };
 const int maxValidAction = 2;
@@ -14,17 +14,18 @@ const int maxValidAction = 2;
 
 CheckURLResult checkURL(BloomFilter* bloomFilter, std::vector<std::string> blackList, std::string url); */
 
-void createBloomFilter();
+void createBloomFilter(UserInput& userInput);
 
 int main() {
-	createBloomFilter();
+	UserInput userInput(std::cin);
+	createBloomFilter(userInput);
 	std::vector<std::string> blackList = {}; // Will be used to validate suspected false-positives
 
 	while (true) { // This is the main loop of the program
 		Action action = Action::Unset;
 		int actionNumber;
 		std::string url;
-		bool failure = getUserActionAndURL(std::cin, &actionNumber, &url, maxValidAction + 1) == -1;
+		bool failure = userInput.getUserActionAndURL(&actionNumber, &url, maxValidAction + 1) == -1;
 		if (failure) throw std::runtime_error("No valid input was provided");
 		action = Action(actionNumber);
 
@@ -48,10 +49,11 @@ int main() {
 }
 
 /// @brief Creates and returns a heap-allocated BloomFilter instance, based on the input from the user
-void createBloomFilter() {
+/// @param userInput A UserInput instance to read the settings from
+void createBloomFilter(UserInput& userInput) {
 	// Get the settings for the bloom filter
 	std::vector<int> settingsVec = {};
-	bool failure = getFilterSettings(std::cin, &settingsVec, HashFuncs::getFuncsNum() + 1) == -1;
+	bool failure = userInput.getFilterSettings(&settingsVec, HashFuncs::getFuncsNum() + 1) == -1;
 	if (failure) throw std::runtime_error("No valid input was provided");
 
 	int bloomBitArrayLength = settingsVec[0];
