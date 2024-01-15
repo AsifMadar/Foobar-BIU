@@ -15,15 +15,16 @@ FetchContent_Declare(
 enable_testing()
 
 set(SOURCE_FILES
-	src/hashFuncs.cpp
+	src/HashFuncs.cpp
 	src/main.cpp
 	src/userInput.cpp
 )
 
 set(TEST_FILES
+	tests/HashFuncs_test.cpp
 	tests/test_main.cpp
- 	tests/addItem_test.cpp
 	tests/userInput_test.cpp
+ 	tests/addItem_test.cpp
 )
 
 add_executable(Foobar ${SOURCE_FILES})

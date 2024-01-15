@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include "./hashFuncs.h"
+#include "./HashFuncs.h"
 #include "./userInput.h"
 
 enum class Action { Unset, AddURL, CheckURL, };
@@ -51,15 +51,14 @@ int main() {
 void createBloomFilter() {
 	// Get the settings for the bloom filter
 	std::vector<int> settingsVec = {};
-	bool failure = getFilterSettings(std::cin, &settingsVec, hashFuncs::functionsNum + 1) == -1;
+	bool failure = getFilterSettings(std::cin, &settingsVec, HashFuncs::getFuncsNum() + 1) == -1;
 	if (failure) throw std::runtime_error("No valid input was provided");
 
 	int bloomBitArrayLength = settingsVec[0];
-	std::vector<hashFuncs::FuncPointer> hashFunctionsVec = {};
-	for (int i = 1; i < settingsVec.size(); i++) {
-		hashFunctionsVec.push_back(hashFuncs::functions[settingsVec[i] - 1]);
-	}
+	settingsVec.erase(settingsVec.begin());
+	HashFuncs hashFuncs(settingsVec);
+	const std::vector<HashFuncs::FuncPointer>* hashFunctionsVec = hashFuncs.getFuncsVec();
 
 	// Once we have a header file for BloomFilter.cpp, we should change the return type and return the bloom filter
-	// return new BloomFilter(bloomBitArrayLength, hashFunctionsVec);
+	// return new BloomFilter(bloomBitArrayLength, &hashFunctionsVec);
 }
