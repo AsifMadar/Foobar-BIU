@@ -38,7 +38,7 @@ After finishing a Jira task, I would move that task to "done", choose another ta
 I've worked using the method we studied in class, red green refactoring.
 
 After every green stage I did the most relevent refactoring, an example is to do less ifs or using get and set functions to use the same function to
-find the value of the hash used on the URL. After that, we studied in class the correct strcture of this project and we refactored the classes to 
+find the value of the hash used on the URL. After that, we studied in class the correct structure of this project and we refactored the classes to 
 work with less dependency with each other.
 
 #### Michael
