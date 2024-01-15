@@ -28,9 +28,9 @@ TEST(HashFuncsTest, getFuncsVec) {
 	ASSERT_EQ(hfVec->size(), 1);
 
 	vec.push_back(2);
-	hf = HashFuncs(vec);
-	hfVec = hf.getFuncsVec();
-	ASSERT_EQ(hfVec->size(), 2);
+	HashFuncs hf2 = HashFuncs(vec);
+	auto hfVec2 = hf2.getFuncsVec();
+	ASSERT_EQ(hfVec2->size(), 2);
 
-	ASSERT_NO_THROW((*hfVec)[0]("hi"));
+	ASSERT_NO_THROW((*hfVec2)[0]("hi"));
 }

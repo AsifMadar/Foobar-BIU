@@ -32,7 +32,7 @@ HashFuncs::HashFuncs(std::vector<int> const hashFuncsIds) {
 };
 
 HashFuncs::~HashFuncs() {
-	// delete this->funcs;
+	delete this->funcs;
 };
 
 /// @return A vector of the hash functions included with this instance
