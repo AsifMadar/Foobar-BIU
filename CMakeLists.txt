@@ -15,12 +15,14 @@ FetchContent_Declare(
 enable_testing()
 
 set(SOURCE_FILES
+	src/App.cpp
 	src/HashFuncs.cpp
 	src/main.cpp
 	src/UserInput.cpp
 )
 
 set(TEST_FILES
+	tests/App_test.cpp
 	tests/HashFuncs_test.cpp
 	tests/test_main.cpp
 	tests/UserInput_test.cpp
