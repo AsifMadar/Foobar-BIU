@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
 #include <vector>
-#include "../src/HashFuncs.cpp"
+#include "../src/HashFuncs.h"
 
 TEST(HashFuncsTest, Contructor) {
 	std::vector<int> vec = {};

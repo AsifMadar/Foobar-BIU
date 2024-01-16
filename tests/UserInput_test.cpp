@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <sstream>
 #include <string>
-#include "../src/UserInput.cpp"
+#include "../src/UserInput.h"
 
 TEST(ReadLineNumbersTest, ValidInput) {
 	std::istringstream dummyIStream("200 20\n8 1 2");

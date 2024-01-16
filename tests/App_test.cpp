@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <stdexcept>
 #include <vector>
-#include "../src/App.cpp"
+#include "../src/App.h"
 
 TEST(AppTest, Contructor) {
 	std::istringstream dummyIStream("");
