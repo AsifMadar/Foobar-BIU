@@ -1,6 +1,7 @@
 #include <functional>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 #include "./HashFuncs.h"
 
@@ -34,6 +35,17 @@ HashFuncs::HashFuncs(std::vector<int> const hashFuncsIds) {
 HashFuncs::~HashFuncs() {
 	delete this->funcs;
 };
+HashFuncs::HashFuncs(const HashFuncs& other): funcs(other.funcs) {}
+HashFuncs::HashFuncs(HashFuncs&& other) noexcept: funcs(std::exchange(other.funcs, nullptr)) {}
+HashFuncs& HashFuncs::operator=(const HashFuncs& other) {
+	*this = HashFuncs(other);
+	return *this;
+}
+HashFuncs& HashFuncs::operator=(HashFuncs&& other) {
+	std::swap(this->funcs, other.funcs);
+	return *this;
+}
+
 
 /// @return A vector of the hash functions included with this instance
 const std::vector<HashFuncs::FuncPointer>* HashFuncs::getFuncsVec() {
