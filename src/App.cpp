@@ -7,7 +7,7 @@
 #include "./UserInput.h"
 
 enum class Action { Unset, AddURL, CheckURL, };
-const int maxValidAction = 2;
+static const int maxValidAction = 2;
 
 /// @param userInput A UserInput instance to read the input from
 App::App(UserInput userInput): userInput(userInput) {};

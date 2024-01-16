@@ -19,8 +19,8 @@ static std::size_t const hashFunction2(std::string str) {
 	return std::hash<std::string>{}(interimVal);
 }
 
-const int functionsNum = 2;
-const HashFuncs::FuncPointer functions[2] = { hashFunction1, hashFunction2 };
+static const int functionsNum = 2;
+static const HashFuncs::FuncPointer functions[2] = { hashFunction1, hashFunction2 };
 
 /// @param hashFuncsIds A vector of integers, each specifying the id of a hash function, in the range [1, HashFuncs::getFuncsNum()]
 HashFuncs::HashFuncs(std::vector<int> const hashFuncsIds) {
