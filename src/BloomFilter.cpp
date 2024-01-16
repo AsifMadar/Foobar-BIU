@@ -14,7 +14,7 @@ using namespace std;
     // initializing the BloomFilter instance.
     BloomFilter::BloomFilter(int size, const vector<HashFuncs::FuncPointer> hashFunctions) : bitArray(size), hashFunctions(hashFunctions)  { }
 
-    std::vector<int> BloomFilter::getBitArray() {
+    std::vector<bool> BloomFilter::getBitArray() {
         return this->bitArray;
     }
 
@@ -22,13 +22,13 @@ using namespace std;
     void BloomFilter::addItem(string url) {
         for(int i = 0; i < hashFunctions.size(); i++) {
             int j = hashItIn(url, i);
-            bitArray[j] = 1;
+            bitArray[j] = true;
         }
     }
     bool BloomFilter::getItem(string url) {
         for(int i = 0; i < hashFunctions.size(); i++) {
             int j = hashItIn(url, i);
-            if (bitArray[j] == 0)
+            if (bitArray[j] == false)
                 return false;
         }
         return true;
