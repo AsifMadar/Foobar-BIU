@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "./App.h"
-//#include "./BloomFilter.h"
+#include "./BloomFilter.h"
 #include "./HashFuncs.h"
 #include "./UserInput.h"
 
@@ -12,30 +12,40 @@ static const int maxValidAction = 2;
 /// @param userInput A UserInput instance to read the input from
 App::App(UserInput userInput): userInput(userInput) {};
 
-/// @brief Creates and returns a heap-allocated BloomFilter instance, based on the input from the user
-/// @param userInput A UserInput instance to read the settings from
-void createBloomFilter(UserInput& userInput) {
+App::~App() {
+	delete this->bloomFilter;
+};
+App::App(const App& other): bloomFilter(other.bloomFilter), userInput(other.userInput) {}
+App::App(App&& other) noexcept: bloomFilter(std::exchange(other.bloomFilter, nullptr)), userInput(other.userInput) {}
+App& App::operator=(const App& other) {
+	*this = App(other);
+	return *this;
+}
+App& App::operator=(App&& other) {
+	std::swap(this->bloomFilter, other.bloomFilter);
+	return *this;
+}
+
+/// @brief Creates and assigns a heap-allocated BloomFilter instance, based on the input from the user
+void App::createBloomFilter() {
 	// Get the settings for the bloom filter
 	std::vector<int> settingsVec = {};
-	bool failure = userInput.getFilterSettings(&settingsVec, HashFuncs::getFuncsNum() + 1) == -1;
+	bool failure = this->userInput.getFilterSettings(&settingsVec, HashFuncs::getFuncsNum() + 1) == -1;
 	if (failure) throw std::runtime_error("No valid input was provided");
 
+	// Create the bloom filter
 	int bloomBitArrayLength = settingsVec[0];
 	settingsVec.erase(settingsVec.begin());
 	HashFuncs hashFuncs(settingsVec);
 	const std::vector<HashFuncs::FuncPointer>* hashFunctionsVec = hashFuncs.getFuncsVec();
 
-	// Once we have a header file for BloomFilter.cpp, we should change the return type and return the bloom filter
-	// return new BloomFilter(bloomBitArrayLength, &hashFunctionsVec);
+	this->bloomFilter = new BloomFilter(bloomBitArrayLength, *hashFunctionsVec);
 }
 
 /// @brief Runs the next iteration of the main program loop
 void App::runNextIteration() {
-	// Waiting for BloomFilter.h
-	if (!this->createBloomFilterRun /* this->bloomFilter == NULL */) {
-		createBloomFilter(this->userInput);
-		this->createBloomFilterRun = true;
-	}
+	if (this->bloomFilter == nullptr) this->createBloomFilter();
+
 	Action action = Action::Unset;
 	int actionNumber;
 	std::string url;
