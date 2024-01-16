@@ -14,7 +14,7 @@ UserInput::UserInput(std::istream& input): inputStream(input) {};
 /// @param minNums The minimum amount of numbers that has to exist in the same input line to consider it valid (inclusive). Defaults to 1.
 /// @param maxNums The maximum amount of numbers that has to exist in the same input line to consider it valid (inclusive). Defaults to 0 (unrestricted).
 /// @return The function returns 0 if a valid line was found and -1 otherwise.
-int UserInput::readLineNumbers(std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0) {
+int UserInput::readLineNumbers(std::vector<int>* iVector, unsigned short minNums, unsigned short maxNums) {
 	// Read each line separately until the end of the input stream. When a valid line is found, the loop will break.
 	while (!this->inputStream.eof()) {
 		iVector->clear();

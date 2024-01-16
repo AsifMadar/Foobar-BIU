@@ -7,7 +7,7 @@
 class UserInput {
 	public:
 		UserInput(std::istream& input);
-		int readLineNumbers(std::vector<int>* iVector, unsigned short minNums, unsigned short maxNums);
+		int readLineNumbers(std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0);
 		int getFilterSettings(std::vector<int>* settingsVec, int maxIdVal);
 		int getUserActionAndURL(int* actionNumber, std::string* url, int max);
 
