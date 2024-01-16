@@ -28,7 +28,7 @@ HashFuncs::HashFuncs(std::vector<int> const hashFuncsIds) {
 		if (functionsNum < id || id < 1) { // Validate arguments
 			throw std::invalid_argument("Provided id is not in range [1, HashFuncs::getFuncsNum()]");
 		}
-		this->funcs->push_back(functions[id]); // Add corresponding function to instance
+		this->funcs->push_back(functions[id - 1]); // Add corresponding function to instance
 	}
 };
 
