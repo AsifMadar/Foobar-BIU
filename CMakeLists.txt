@@ -25,6 +25,7 @@ set(TEST_FILES
 	tests/addItem_test.cpp
 	tests/App_test.cpp
 	tests/getItem_test.cpp
+	tests/HashFuncConfirm_test.cpp
 	tests/HashFuncs_test.cpp
 	tests/test_main.cpp
 	tests/UserInput_test.cpp
