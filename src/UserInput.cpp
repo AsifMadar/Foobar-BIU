@@ -2,23 +2,26 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "./UserInput.h"
+
+/// @param input The stream to read input from
+UserInput::UserInput(std::istream& input): inputStream(input) {};
 
 /// @brief Reads lines from the provided input stream until a line that contains only numbers is found.
 /// 	Then, fills the provided vector with the numbers found on that line.
 /// 	If no valid lines were found in the input stream, the vector will be empty and the function will return -1.
-/// @param input An input stream reference
 /// @param iVector A pointer to a vector that will store the numbers. The vector will be cleared before reading the line.
 /// @param minNums The minimum amount of numbers that has to exist in the same input line to consider it valid (inclusive). Defaults to 1.
 /// @param maxNums The maximum amount of numbers that has to exist in the same input line to consider it valid (inclusive). Defaults to 0 (unrestricted).
 /// @return The function returns 0 if a valid line was found and -1 otherwise.
-int readLineNumbers(std::istream& input, std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0) {
+int UserInput::readLineNumbers(std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0) {
 	// Read each line separately until the end of the input stream. When a valid line is found, the loop will break.
-	while (!input.eof()) {
+	while (!this->inputStream.eof()) {
 		iVector->clear();
 
 		// Extract the next line from the input stream into its own stream
 		std::string line;
-		std::getline(input, line);
+		std::getline(this->inputStream, line);
 		std::stringstream lineStream(line);
 
 		// Read numbers until the end of the line, and stop early if invalid input was provided
@@ -59,16 +62,16 @@ bool isInRange(int x, int min, int max) {
 /// @brief Reads lines from the provided input stream until a line that contains valid input for the filter settings is found.
 /// 	Then, fills the provided vector with the numbers found on that line.
 /// 	If no valid lines were found in the input stream, the vector will be empty and the function will return -1.
-/// @param input An input stream reference
 /// @param settingsVec A pointer to a vector that will store the numbers. The vector will be cleared before reading the line.
 /// @param maxIdVal The maximum value for each of the parameters after the first one (exclusive), and the maximum amuont of numbers that is considered valid (inclusive).
 /// @return The function returns 0 if a valid line was found and -1 otherwise.
-int getFilterSettings(std::istream& input, std::vector<int>* settingsVec, int maxIdVal) {
+int UserInput::getFilterSettings(std::vector<int>* settingsVec, int maxIdVal) {
 	/* Continue reading lines until we find a line with enough numbers, and the non-first numbers are all in range */
 	while (true) {
-		bool failure = readLineNumbers(input, settingsVec, 2, maxIdVal) == -1;
+		bool failure = this->readLineNumbers(settingsVec, 2, maxIdVal) == -1;
 		if (failure) return -1; // `readLineNumbers()` has already cleared `settingsVec`
 
+		// Return if all all settings parameters are valid
 		bool valid = true;
 		for (int i = 1; i < maxIdVal && valid; i++) {
 			valid = settingsVec->size() < i+1 || isInRange((*settingsVec)[i], 1, maxIdVal);
@@ -81,17 +84,16 @@ int getFilterSettings(std::istream& input, std::vector<int>* settingsVec, int ma
 /// 	`max` followed by a non-whitespace characters is found. Then, puts that number into the provided
 /// 	`actionNumber`, and the rest of the line (ignoreing the leading whitespace) into the `url`.
 /// 	If no valid lines were found in the input stream, the function will return -1.
-/// @param input An input stream reference
 /// @param actionNumber A pointer to an integer
 /// @param url A pointer to a string
 /// @param max The maximum valid value for the first number (exclusive)
 /// @return The function returns 0 if a valid line was found and -1 otherwise.
-int getUserActionAndURL(std::istream& input, int* actionNumber, std::string* url, int max) {
+int UserInput::getUserActionAndURL(int* actionNumber, std::string* url, int max) {
 	// Read each line separately until the end of the input stream. When a valid line is found, the loop will break.
-	while (!input.eof()) {
+	while (!this->inputStream.eof()) {
 		// Extract the next line from the input stream into its own stream
 		std::string line;
-		std::getline(input, line);
+		std::getline(this->inputStream, line);
 		std::stringstream lineStream(line);
 
 		int action;
