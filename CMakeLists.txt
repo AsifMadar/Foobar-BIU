@@ -26,8 +26,8 @@ set(TEST_FILES
 	tests/HashFuncs_test.cpp
 	tests/test_main.cpp
 	tests/UserInput_test.cpp
- 	tests/addItem_test.cpp
 	tests/getItem_test.cpp
+	tests/addItem_test.cpp
 )
 
 add_executable(Foobar ${SOURCE_FILES})

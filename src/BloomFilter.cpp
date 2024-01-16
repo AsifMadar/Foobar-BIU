@@ -1,36 +1,31 @@
 #include <string>
 #include <vector>
 #include <functional>
-#include "hashFuncs.h"
+#include "HashFuncs.h"
+#include "BloomFilter.h"
 
 using namespace std;
 
-class BloomFilter {
 
-private:
-vector<int> bitArray;
-vector<hashFuncs::FuncPointer> hashFunctions;
-
-    int hashItIn(string url, int i) {
+    int BloomFilter::hashItIn(string url, int i) {
             return hashFunctions[i](url) % bitArray.size();
         }
 
-    public:
     // initializing the BloomFilter instance.
-    BloomFilter(int size, vector<hashFuncs::FuncPointer> hashFunctions) : bitArray(size), hashFunctions(hashFunctions)  { }
+    BloomFilter::BloomFilter(int size, const vector<HashFuncs::FuncPointer> hashFunctions) : bitArray(size), hashFunctions(hashFunctions)  { }
 
-    std::vector<int> getBitArray() {
+    std::vector<int> BloomFilter::getBitArray() {
         return this->bitArray;
     }
 
     // Adding the item to the blacklist.
-    void addItem(string url) {
+    void BloomFilter::addItem(string url) {
         for(int i = 0; i < hashFunctions.size(); i++) {
             int j = hashItIn(url, i);
             bitArray[j] = 1;
         }
     }
-    bool getItem(string url) {
+    bool BloomFilter::getItem(string url) {
         for(int i = 0; i < hashFunctions.size(); i++) {
             int j = hashItIn(url, i);
             if (bitArray[j] == 0)
@@ -38,4 +33,3 @@ vector<hashFuncs::FuncPointer> hashFunctions;
         }
         return true;
     }
-};
