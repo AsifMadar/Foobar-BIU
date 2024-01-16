@@ -2,22 +2,17 @@
 #include <vector>
 #include <set>
 #include <functional>
+#include "HashFuncConfirm.h"
 
 using namespace std;
-
-class FalsePositive {
-    
-private:   
-set<string> itemVec;
-
-public:
-    FalsePositive() {}
-    set<string> getItemsSet() {
-        return itemVec;
+ 
+    set<string> FalsePositive::getItemsSet() {
+        return itemSet;
     }
-    void addItemToSet(string item) {
-        itemVec.insert(item);
+    void FalsePositive::addItemToSet(string item) {
+        itemSet.insert(item);
     }
 
-    set<string> getItemVec() {return itemVec;}
-};
+    bool FalsePositive::ItemIsIn(string item) {
+        return itemSet.find(item) != itemSet.end();
+    }
