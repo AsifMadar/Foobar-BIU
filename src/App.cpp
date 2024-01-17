@@ -6,10 +6,10 @@
 #include "./IAction.h"
 #include "./BloomFilter.h"
 #include "./HashFuncs.h"
-#include "./InStreamInput.h"
+#include "./IUserInput.h"
 
-/// @param userInput An InStreamInput instance to read the input from
-App::App(InStreamInput userInput, std::map<int, IAction*> actions, int maxAction): userInput(userInput), actions(actions) , maxAction(maxAction) {};
+/// @param userInput An IUserInput instance to read the input from
+App::App(IUserInput* userInput, std::map<int, IAction*> actions, int maxAction): userInput(userInput), actions(actions) , maxAction(maxAction) {};
 
 App::~App() {
 	delete this->bloomFilter;
@@ -29,7 +29,7 @@ App& App::operator=(App&& other) {
 void App::createBloomFilter() {
 	// Get the settings for the bloom filter
 	std::vector<int> settingsVec = {};
-	bool failure = this->userInput.getFilterSettings(&settingsVec, HashFuncs::getFuncsNum() + 1) == -1;
+	bool failure = this->userInput->getFilterSettings(&settingsVec, HashFuncs::getFuncsNum() + 1) == -1;
 	if (failure) throw std::runtime_error("No valid input was provided");
 
 	// Create the bloom filter
@@ -47,7 +47,7 @@ void App::runNextIteration() {
 
 	int actionNumber;
 	std::string url;
-	bool failure = this->userInput.getUserActionAndURL(&actionNumber, &url, this->maxAction + 1) == -1;
+	bool failure = this->userInput->getUserActionAndURL(&actionNumber, &url, this->maxAction + 1) == -1;
 	if (failure) throw std::runtime_error("No valid input was provided");
 
 	try {

@@ -4,15 +4,16 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include "./IAction.h"
 #include "./BloomFilter.h"
-#include "./HashFuncs.h"
-#include "./InStreamInput.h"
 #include "./FalsePositiveCheck.h"
+#include "./HashFuncs.h"
+#include "./IAction.h"
+#include "./InStreamInput.h"
+#include "./IUserInput.h"
 
 class App {
 	public:
-		App(InStreamInput userInput, std::map<int, IAction*> actions, int maxAction);
+		App(IUserInput* userInput, std::map<int, IAction*> actions, int maxAction);
 		~App();
 		App(const App& other);
 		App(App&& other) noexcept;
@@ -28,5 +29,5 @@ class App {
 		int maxAction;
 		std::map<int, IAction*> actions;
 		FalsePositiveCheck blackList{};
-		InStreamInput userInput;
+		IUserInput* userInput;
 };

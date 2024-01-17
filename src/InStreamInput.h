@@ -5,7 +5,7 @@
 #include <vector>
 #include "IUserInput.h"
 
-class InStreamInput: public IUserinput {
+class InStreamInput: public IUserInput {
 	public:
 		InStreamInput(std::istream& input);
 		int readLineNumbers(std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0);

@@ -9,7 +9,7 @@ int main() {
 	AddURLToBlacklist action1{};
 	CheckURLInBlacklist action2{};
 	std::map<int, IAction*> actions = {{1, &action1}, {2, &action2}};
-	App app(userInput, actions, actions.size());
+	App app(&userInput, actions, actions.size());
 	app.run();
 
 	return 0;
