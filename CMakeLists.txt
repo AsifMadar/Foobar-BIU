@@ -22,6 +22,8 @@ set(SOURCE_FILES
 	src/UserInput.cpp
 	src/FalsePositiveCheck.cpp
 	src/AddURLToBlacklist.cpp
+	src/CheckURLInBlacklist.cpp
+
 )
 set(TEST_FILES
 	tests/addItem_test.cpp
@@ -32,6 +34,7 @@ set(TEST_FILES
 	tests/test_main.cpp
 	tests/UserInput_test.cpp
 	tests/AddURLToBlacklist_test.cpp
+	tests/CheckURLInBlacklist_test.cpp
 )
 
 add_executable(Foobar ${SOURCE_FILES} ${MAIN_FILE})
