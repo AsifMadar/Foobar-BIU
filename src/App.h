@@ -1,14 +1,19 @@
 #include <functional>
 #include <iostream>
+#include <map>
 #include <stdexcept>
 #include <string>
 #include <vector>
 #include "./BloomFilter.h"
-#include "./UserInput.h"
+#include "./FalsePositiveCheck.h"
+#include "./HashFuncs.h"
+#include "./IAction.h"
+#include "./InStreamInput.h"
+#include "./IUserInput.h"
 
 class App {
 	public:
-		App(UserInput userInput);
+		App(IUserInput* userInput, std::map<int, IAction*> actions, int maxAction);
 		~App();
 		App(const App& other);
 		App(App&& other) noexcept;
@@ -20,7 +25,9 @@ class App {
 	private:
 		void createBloomFilter();
 
-		UserInput userInput;
 		BloomFilter* bloomFilter = nullptr;
-		std::vector<std::string> blackList = {}; // Will be used to validate suspected false-positives
+		int maxAction;
+		std::map<int, IAction*> actions;
+		FalsePositiveCheck blackList{};
+		IUserInput* userInput;
 };
