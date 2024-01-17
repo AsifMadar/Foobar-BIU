@@ -8,6 +8,7 @@
 #include "./BloomFilter.h"
 #include "./HashFuncs.h"
 #include "./UserInput.h"
+#include "./FalsePositiveCheck.h"
 
 class App {
 	public:
@@ -26,6 +27,6 @@ class App {
 		BloomFilter* bloomFilter = nullptr;
 		int maxAction;
 		std::map<int, IAction*> actions;
-		std::vector<std::string> blackList = {}; // Will be used to validate suspected false-positives
+		FalsePositiveCheck blackList{};
 		UserInput userInput;
 };

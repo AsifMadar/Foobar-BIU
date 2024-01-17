@@ -3,10 +3,11 @@
 #include <vector>
 #include "../src/App.h"
 #include "../src/IAction.h"
+#include "../src/FalsePositiveCheck.h"
 
 class TestAction: public IAction {
 	public:
-		virtual void execute(BloomFilter* bloomFilter, std::vector<std::string>* blacklistVec, std::string url) override {
+		virtual void execute(BloomFilter* bloomFilter, FalsePositiveCheck* blacklistVec, std::string url) override {
 			1;
 		};
 };
@@ -14,7 +15,7 @@ class TestAction: public IAction {
 static TestAction testAction{};
 static std::map<int, IAction*> actions = {{1, &testAction}, {2, &testAction}};
 
-TEST(AppTest, Contructor) {
+TEST(AppTest, Constructor) {
 	std::istringstream dummyIStream("");
 	UserInput userInput(dummyIStream);
 	

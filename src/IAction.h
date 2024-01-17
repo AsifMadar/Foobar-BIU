@@ -2,8 +2,9 @@
 #include <string>
 #include <vector>
 #include "./BloomFilter.h"
+#include "FalsePositiveCheck.h"
 
 class IAction {
 	public:
-		virtual void execute(BloomFilter* bloomFilter, std::vector<std::string>* blacklistVec, std::string url) = 0;
+		virtual void execute(BloomFilter* bloomFilter, FalsePositiveCheck* blacklistVec, std::string url) = 0;
 };
