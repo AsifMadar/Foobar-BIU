@@ -8,8 +8,8 @@ WORKDIR /home/runner/work/Foobar-BIU/Foobar-BIU
 COPY . .
 
 # Compile the C++ code
-RUN sudo apt-get update; sudo apt-get install build-essential cmake libgtest-dev; cmake -B build -S .
-
+RUN apt-get update; apt-get install build-essential cmake libgtest-dev
+RUN cmake -B build -S .
 RUN cmake --build build
 
 # Specify the command to run on container startup
