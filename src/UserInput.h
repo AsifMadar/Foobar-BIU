@@ -3,8 +3,9 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "IUserInput.h"
 
-class UserInput {
+class UserInput: public IUserinput {
 	public:
 		UserInput(std::istream& input);
 		int readLineNumbers(std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0);
