@@ -8,7 +8,7 @@ using namespace std;
 
 class BloomFilter {
 private:
-vector<int> bitArray;
+vector<bool> bitArray;
 const vector<HashFuncs::FuncPointer> hashFunctions;
 
     int hashItIn(string url, int i);
@@ -16,7 +16,7 @@ const vector<HashFuncs::FuncPointer> hashFunctions;
     public:
     BloomFilter(int size, const vector<HashFuncs::FuncPointer> hashFunctions);
 
-    std::vector<int> getBitArray();
+    std::vector<bool> getBitArray();
 
     void addItem(string url);
     bool getItem(string url);

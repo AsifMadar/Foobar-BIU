@@ -1,22 +1,21 @@
+#include <map>
 #include <stdexcept>
 #include <string>
 #include <vector>
 #include "./App.h"
+#include "./IAction.h"
 #include "./BloomFilter.h"
 #include "./HashFuncs.h"
 #include "./UserInput.h"
 
-enum class Action { Unset, AddURL, CheckURL, };
-static const int maxValidAction = 2;
-
 /// @param userInput A UserInput instance to read the input from
-App::App(UserInput userInput): userInput(userInput) {};
+App::App(UserInput userInput, std::map<int, IAction*> actions, int maxAction): userInput(userInput), actions(actions) , maxAction(maxAction) {};
 
 App::~App() {
 	delete this->bloomFilter;
 };
-App::App(const App& other): bloomFilter(other.bloomFilter), userInput(other.userInput) {}
-App::App(App&& other) noexcept: bloomFilter(std::exchange(other.bloomFilter, nullptr)), userInput(other.userInput) {}
+App::App(const App& other): bloomFilter(other.bloomFilter), userInput(other.userInput), actions(actions), maxAction(maxAction)  {}
+App::App(App&& other) noexcept: bloomFilter(std::exchange(other.bloomFilter, nullptr)), userInput(other.userInput), actions(actions), maxAction(maxAction)  {}
 App& App::operator=(const App& other) {
 	*this = App(other);
 	return *this;
@@ -46,26 +45,15 @@ void App::createBloomFilter() {
 void App::runNextIteration() {
 	if (this->bloomFilter == nullptr) this->createBloomFilter();
 
-	Action action = Action::Unset;
 	int actionNumber;
 	std::string url;
-	bool failure = this->userInput.getUserActionAndURL(&actionNumber, &url, maxValidAction + 1) == -1;
+	bool failure = this->userInput.getUserActionAndURL(&actionNumber, &url, this->maxAction + 1) == -1;
 	if (failure) throw std::runtime_error("No valid input was provided");
-	action = Action(actionNumber);
 
-	switch (action) {
-		case Action::AddURL:
-			// Implement addURL() first
-			//addURL(&bloomFilter, &blackList, url);
-			break;
-
-		case Action::CheckURL:
-			// Implement checkURL() first
-			//CheckURLResult checkResult = checkURL(&bloomFilter, &blackList, url);
-			break;
-		
-		default:
-			break;
+	try {
+		this->actions[actionNumber]->execute(this->bloomFilter, &this->blackList, url);
+	} catch (const std::exception& e) {
+		// Do nothing, and wait for the next iteration
 	}
 }
 
