@@ -6,10 +6,10 @@
 #include "./IAction.h"
 #include "./BloomFilter.h"
 #include "./HashFuncs.h"
-#include "./UserInput.h"
+#include "./InStreamInput.h"
 
-/// @param userInput A UserInput instance to read the input from
-App::App(UserInput userInput, std::map<int, IAction*> actions, int maxAction): userInput(userInput), actions(actions) , maxAction(maxAction) {};
+/// @param userInput An InStreamInput instance to read the input from
+App::App(InStreamInput userInput, std::map<int, IAction*> actions, int maxAction): userInput(userInput), actions(actions) , maxAction(maxAction) {};
 
 App::~App() {
 	delete this->bloomFilter;

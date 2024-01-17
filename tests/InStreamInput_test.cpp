@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 #include <sstream>
 #include <string>
-#include "../src/UserInput.h"
+#include "../src/InStreamInput.h"
 
 TEST(ReadLineNumbersTest, ValidInput) {
 	std::istringstream dummyIStream("200 20\n8 1 2");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.readLineNumbers(&vec);
@@ -20,7 +20,7 @@ TEST(ReadLineNumbersTest, ValidInput) {
 
 TEST(ReadLineNumbersTest, InvalidInput) {
 	std::istringstream dummyIStream("10 a 5\n4 1\nhello\n 2 but why\n230 2 1");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.readLineNumbers(&vec);
@@ -35,7 +35,7 @@ TEST(ReadLineNumbersTest, InvalidInput) {
 
 TEST(ReadLineNumbersTest, MinNumbers) {
 	std::istringstream dummyIStream("1 2\n 5\n 4 3 5\n 41");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.readLineNumbers(&vec, 2);
@@ -53,7 +53,7 @@ TEST(ReadLineNumbersTest, MinNumbers) {
 
 TEST(ReadLineNumbersTest, MaxNumbers) {
 	std::istringstream dummyIStream("1 2 3\n 5\n2\n 4 3 5\n 41 2");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.readLineNumbers(&vec, 1, 2);
@@ -69,7 +69,7 @@ TEST(ReadLineNumbersTest, MaxNumbers) {
 
 TEST(ReadLineNumbersTest, ReturnValue) {
 	std::istringstream dummyIStream("1 2\n 5\n 41");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	ASSERT_EQ(userInput.readLineNumbers(&vec, 2), 0);
@@ -78,7 +78,7 @@ TEST(ReadLineNumbersTest, ReturnValue) {
 
 TEST(ReadLineNumbersTest, TrailingWhitespace) {
 	std::istringstream dummyIStream("1 2 \n 5 \n2 a ");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.readLineNumbers(&vec);
@@ -96,7 +96,7 @@ TEST(ReadLineNumbersTest, TrailingWhitespace) {
 
 TEST(GetFilterSettingsTest, ValidInput) {
 	std::istringstream dummyIStream("200 2\n8 1 2");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.getFilterSettings(&vec, 3);
@@ -111,7 +111,7 @@ TEST(GetFilterSettingsTest, ValidInput) {
 
 TEST(GetFilterSettingsTest, InvalidInput) {
 	std::istringstream dummyIStream("10 a 5\n1 2 3\n4 2\n4 1\n\n4 1hello\n 2 but why\n230 2 3\n230 2 1");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.getFilterSettings(&vec, 2);
@@ -126,7 +126,7 @@ TEST(GetFilterSettingsTest, InvalidInput) {
 
 TEST(GetFilterSettingsTest, ReturnValue) {
 	std::istringstream dummyIStream("1 1\n 5\n 41 2");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	ASSERT_EQ(userInput.getFilterSettings(&vec, 2), 0);
@@ -135,7 +135,7 @@ TEST(GetFilterSettingsTest, ReturnValue) {
 
 TEST(GetFilterSettingsTest, TrailingWhitespace) {
 	std::istringstream dummyIStream("1 1 \n 5 2 1 \n2 a ");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	std::vector<int> vec = {};
 
 	userInput.getFilterSettings(&vec, 2);
@@ -155,7 +155,7 @@ TEST(GetFilterSettingsTest, TrailingWhitespace) {
 
 TEST(GetUserActionAndURLTest, ValidInput) {
 	std::istringstream dummyIStream("1 hi\n2 www.example.com\n2 https://www.example.com\n1 12");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	int a;
 	std::string str;
 
@@ -178,7 +178,7 @@ TEST(GetUserActionAndURLTest, ValidInput) {
 
 TEST(GetUserActionAndURLTest, InvalidInput) {
 	std::istringstream dummyIStream("11 \n 1 hi\n2 hi\n5 hi\n0 hi\n1 www.example.com\n2 https://www.example.com\n1  \n2 f");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	int a;
 	std::string str;
 
@@ -205,7 +205,7 @@ TEST(GetUserActionAndURLTest, InvalidInput) {
 
 TEST(GetUserActionAndURLTest, MaxNumber) {
 	std::istringstream dummyIStream("51 www.example.com\n5 www.example.com\n2 https://www.example.com\n1  \n12 f");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	int a;
 	std::string str;
 
@@ -224,7 +224,7 @@ TEST(GetUserActionAndURLTest, MaxNumber) {
 
 TEST(GetUserActionAndURLTest, ReturnValue) {
 	std::istringstream dummyIStream("1 www.example.com\n5\n a\n");
-	UserInput userInput(dummyIStream);
+	InStreamInput userInput(dummyIStream);
 	int a;
 	std::string str;
 

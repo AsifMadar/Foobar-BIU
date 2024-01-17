@@ -7,11 +7,11 @@
 #include "./IAction.h"
 #include "./BloomFilter.h"
 #include "./HashFuncs.h"
-#include "./UserInput.h"
+#include "./InStreamInput.h"
 
 class App {
 	public:
-		App(UserInput userInput, std::map<int, IAction*> actions, int maxAction);
+		App(InStreamInput userInput, std::map<int, IAction*> actions, int maxAction);
 		~App();
 		App(const App& other);
 		App(App&& other) noexcept;
@@ -27,5 +27,5 @@ class App {
 		int maxAction;
 		std::map<int, IAction*> actions;
 		std::vector<std::string> blackList = {}; // Will be used to validate suspected false-positives
-		UserInput userInput;
+		InStreamInput userInput;
 };

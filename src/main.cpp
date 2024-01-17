@@ -3,7 +3,7 @@
 #include "./App.h"
 
 int main() {
-	UserInput userInput(std::cin);
+	InStreamInput userInput(std::cin);
 	std::map<int, IAction*> actions = {};
 	App app(userInput, actions, 0);
 	app.run();
