@@ -27,6 +27,6 @@ class App {
 		BloomFilter* bloomFilter = nullptr;
 		int maxAction;
 		std::map<int, IAction*> actions;
-		std::vector<std::string> blackList = {}; // Will be used to validate suspected false-positives
+		FalsePositiveCheck blackList{};
 		InStreamInput userInput;
 };
