@@ -20,15 +20,21 @@ set(SOURCE_FILES
 	src/BloomFilter.cpp
 	src/HashFuncs.cpp
 	src/InStreamInput.cpp
+	src/FalsePositiveCheck.cpp
+	src/AddURLToBlacklist.cpp
+	src/CheckURLInBlacklist.cpp
+
 )
 set(TEST_FILES
 	tests/addItem_test.cpp
 	tests/App_test.cpp
 	tests/getItem_test.cpp
-	tests/HashFuncConfirm_test.cpp
+	tests/FalsePositiveCheck_test.cpp
 	tests/HashFuncs_test.cpp
 	tests/test_main.cpp
 	tests/InStreamInput_test.cpp
+	tests/AddURLToBlacklist_test.cpp
+	tests/CheckURLInBlacklist_test.cpp
 )
 
 add_executable(Foobar ${SOURCE_FILES} ${MAIN_FILE})

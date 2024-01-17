@@ -8,6 +8,7 @@
 #include "./BloomFilter.h"
 #include "./HashFuncs.h"
 #include "./InStreamInput.h"
+#include "./FalsePositiveCheck.h"
 
 class App {
 	public:

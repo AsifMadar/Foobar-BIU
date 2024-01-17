@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 #include <string>
 #include <vector>
 #include <set>
@@ -6,13 +6,13 @@
 
 using namespace std;
 
-class FalsePositive {
+class FalsePositiveCheck {
     
 private:   
 set<string> itemSet;
 
 public:
-    FalsePositive() {}
+    FalsePositiveCheck() {}
     set<string> getItemsSet();
     void addItemToSet(string item);
     bool ItemIsIn(string item);
