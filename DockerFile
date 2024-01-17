@@ -2,7 +2,7 @@
 FROM gcc:latest
 
 # Set the working directory in the container
-WORKDIR /usr/src/Foobar-BIU
+WORKDIR /Foobar-BIU
 
 # Copy the current directory contents into the container
 COPY . .

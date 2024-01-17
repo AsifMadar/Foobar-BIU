@@ -21,6 +21,8 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: test
+        run : pwd
       - name: check out the repo
         uses: actions/checkout@v4
 
