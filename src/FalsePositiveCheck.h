@@ -2,20 +2,19 @@
 #include <string>
 #include <vector>
 #include <set>
-#include <functional>
 
 using namespace std;
 
 class FalsePositiveCheck {
     
-private:   
-set<string> itemSet;
+    private:   
+        set<string> itemSet;
 
-public:
-    FalsePositiveCheck() {}
-    set<string> getItemsSet();
-    void addItemToSet(string item);
-    bool ItemIsIn(string item);
+    public:
+        FalsePositiveCheck() {}
+        set<string> getItemsSet();
+        void addItemToSet(string item);
+        bool ItemIsIn(string item);
 
     
 };
