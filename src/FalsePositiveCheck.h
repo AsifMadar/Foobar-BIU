@@ -15,6 +15,4 @@ class FalsePositiveCheck {
         set<string> getItemsSet();
         void addItemToSet(string item);
         bool ItemIsIn(string item);
-
-    
 };
