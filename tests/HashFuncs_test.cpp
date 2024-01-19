@@ -32,5 +32,18 @@ TEST(HashFuncsTest, getFuncsVec) {
 	auto hfVec2 = hf2.getFuncsVec();
 	ASSERT_EQ(hfVec2->size(), 2);
 
-	ASSERT_NO_THROW((*hfVec2)[0]("hi"));
+	EXPECT_NO_THROW((*hfVec2)[0]("hi"));
+	EXPECT_NO_THROW((*hfVec2)[1]("hi"));
+}
+
+TEST(HashFuncsTest, filtersDuplicates) {
+	std::vector<int> vec = {1, 1, 2, 2, 2};
+	HashFuncs hf = HashFuncs(vec);
+	auto hfVec = hf.getFuncsVec();
+	ASSERT_EQ(hfVec->size(), 2);
+
+	vec.push_back(2);
+	HashFuncs hf2 = HashFuncs(vec);
+	auto hfVec2 = hf2.getFuncsVec();
+	ASSERT_EQ(hfVec2->size(), 2);
 }

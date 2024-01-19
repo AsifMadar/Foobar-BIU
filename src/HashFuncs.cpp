@@ -1,10 +1,10 @@
+#include <algorithm>
 #include <functional>
 #include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
 #include "./HashFuncs.h"
-
 
 /* In this exercise, we are required to implement 2 hash functions: the first one runs std::hash once,
 	and the second one runs std::hash twice. These are the next two functions */
@@ -28,7 +28,11 @@ HashFuncs::HashFuncs(std::vector<int> const hashFuncsIds) {
 		if (functionsNum < id || id < 1) { // Validate arguments
 			throw std::invalid_argument("Provided id is not in range [1, HashFuncs::getFuncsNum()]");
 		}
-		this->funcs->push_back(functions[id - 1]); // Add corresponding function to instance
+
+		std::vector<HashFuncs::FuncPointer>* v = this->funcs;
+		HashFuncs::FuncPointer hashFunc = functions[id - 1];
+		// Add corresponding function to instance if not duplicate
+		if (std::find(v->begin(), v->end(), hashFunc) == v->end()) v->push_back(hashFunc);
 	}
 };
 

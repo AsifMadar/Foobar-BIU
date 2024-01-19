@@ -63,12 +63,12 @@ bool isInRange(int x, int min, int max) {
 /// 	Then, fills the provided vector with the numbers found on that line.
 /// 	If no valid lines were found in the input stream, the vector will be empty and the function will return -1.
 /// @param settingsVec A pointer to a vector that will store the numbers. The vector will be cleared before reading the line.
-/// @param maxIdVal The maximum value for each of the parameters after the first one (exclusive), and the maximum amuont of numbers that is considered valid (inclusive).
+/// @param maxIdVal The maximum value for each of the parameters after the first one (exclusive).
 /// @return The function returns 0 if a valid line was found and -1 otherwise.
 int InStreamInput::getFilterSettings(std::vector<int>* settingsVec, int maxIdVal) {
 	/* Continue reading lines until we find a line with enough numbers, and the non-first numbers are all in range */
 	while (true) {
-		bool failure = this->readLineNumbers(settingsVec, 2, maxIdVal) == -1;
+		bool failure = this->readLineNumbers(settingsVec, 2) == -1;
 		if (failure) return -1; // `readLineNumbers()` has already cleared `settingsVec`
 
 		// Return if all all settings parameters are valid
