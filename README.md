@@ -15,7 +15,7 @@ Finally, run the program using `./build/Foobar`
 ## Workflow
 We worked together to convert the instructions into tasks in Jira, then we put them into relevent epics and decided on how we split the work.
 
-Michael is working on the user-facing I/O, while Asif is working on the Bloom Filter (including verifying positive answers). Hodaya, who joined the project after Asif and Michael had already started working, worked mainly on refactoring existing code and on the docker file.
+Michael is working on the user-facing I/O, while Asif is working on the Bloom Filter (including verifying positive answers). Hodaya, who joined the project after Asif and Michael had already started working, worked mainly on refactoring existing code and on the workflow files.
 
 ### Development process
 #### Asif
@@ -43,6 +43,9 @@ I've worked using the method we studied in class, red green refactoring.
 After every green stage I did the most relevent refactoring, an example is to do less ifs or using get and set functions to use the same function to
 find the value of the hash used on the URL. After that, we studied in class the correct structure of this project and we refactored the classes to 
 work with less dependency with each other.
+
+#### Hodaya
+I joined some time after Asif and Michael had started the project, therefore I did less work. I've changed the arrays used in Bloomfilter to boolean in order to optimize the memory usage, extracted the UserInput class to an interface, and created a workflow that for every pull request into main will run all the tests. In addition, I've helped in the docker file part, although this is something we all did together.
 
 #### Michael
 I have also worked using TDD and "Red-Green-Refactor".
