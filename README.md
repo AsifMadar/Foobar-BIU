@@ -16,3 +16,4 @@ Asif - I've worked using the method we studied in class, red green refactoring.
 After every green stage I did the most relevant refactoring, an example is to do less ifs or using get and set functions to use the same function to
 find the value of the hash used on the URL. After that, we studied in class the correct structure of this project and we refactored the classes to 
 work with less dependency with each other.
+Hodaya: I joined some time after Asif and Michael had started the project, therefore I did less work. I've changed the arrays used in Bloomfilter to boolian in order to optimy the running time, extracted the UserInput class to an interface, and created a workflow that for every pull request into main will run all the tests. In addition, I've helped in the docker file part, although this is something we all did together.
