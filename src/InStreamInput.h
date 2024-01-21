@@ -3,11 +3,12 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "IUserInput.h"
 
-class UserInput {
+class InStreamInput: public IUserInput {
 	public:
-		UserInput(std::istream& input);
-		int readLineNumbers(std::vector<int>* iVector, unsigned short minNums, unsigned short maxNums);
+		InStreamInput(std::istream& input);
+		int readLineNumbers(std::vector<int>* iVector, unsigned short minNums = 1, unsigned short maxNums = 0);
 		int getFilterSettings(std::vector<int>* settingsVec, int maxIdVal);
 		int getUserActionAndURL(int* actionNumber, std::string* url, int max);
 

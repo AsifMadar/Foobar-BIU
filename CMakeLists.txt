@@ -14,22 +14,32 @@ FetchContent_Declare(
 
 enable_testing()
 
+set(MAIN_FILE src/main.cpp)
 set(SOURCE_FILES
+	src/App.cpp
+	src/BloomFilter.cpp
 	src/HashFuncs.cpp
-	src/main.cpp
-	src/UserInput.cpp
-)
+	src/InStreamInput.cpp
+	src/FalsePositiveCheck.cpp
+	src/AddURLToBlacklist.cpp
+	src/CheckURLInBlacklist.cpp
 
+)
 set(TEST_FILES
+	tests/addItem_test.cpp
+	tests/App_test.cpp
+	tests/getItem_test.cpp
+	tests/FalsePositiveCheck_test.cpp
 	tests/HashFuncs_test.cpp
 	tests/test_main.cpp
-	tests/UserInput_test.cpp
- 	tests/addItem_test.cpp
+	tests/InStreamInput_test.cpp
+	tests/AddURLToBlacklist_test.cpp
+	tests/CheckURLInBlacklist_test.cpp
 )
 
-add_executable(Foobar ${SOURCE_FILES})
-add_executable(FoobarDebugBuild ${SOURCE_FILES})
-add_executable(FoobarTests ${TEST_FILES})
+add_executable(Foobar ${SOURCE_FILES} ${MAIN_FILE})
+add_executable(FoobarDebugBuild ${SOURCE_FILES} ${MAIN_FILE})
+add_executable(FoobarTests ${SOURCE_FILES} ${TEST_FILES})
 
 target_compile_options(FoobarDebugBuild PRIVATE "-g" "-O0")
 
