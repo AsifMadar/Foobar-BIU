@@ -21,6 +21,9 @@ Michael is working on the user-facing I/O, while Asif is working on the Bloom Fi
 #### Asif
 I've worked on Bloom Filter class making tests for the constructor, using getters. Then, the AddItem function tested by checking if there's one's inside
 the bit array using. getItem tested the most because I can test all the class function using this function.
+After that, I worked FalsePositive class, which returns true if the url is truley inside the blacklist.
+Lastly I implemented two classes AddUrlToBlacklist and GetUrlFromBlacklist which implements the abstract class IAction.
+All classes developed using TDD.
 
 All the tests built using google tests and the function built like taught in class, red green refactoring.
 
