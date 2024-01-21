@@ -15,7 +15,7 @@ Finally, run the program using `./build/Foobar`
 ## Workflow
 We worked together to convert the instructions into tasks in Jira, then we put them into relevent epics and decided on how we split the work.
 
-Michael is working on the user-facing I/O, while Asif is working on the Bloom Filter (including verifying positive answers). Both work together on the docker file.
+Michael is working on the user-facing I/O, while Asif is working on the Bloom Filter (including verifying positive answers). Hodaya, who joined the project after Asif and Michael had already started working, worked mainly on refactoring existing code and on the docker file.
 
 ### Development process
 #### Asif
@@ -28,9 +28,9 @@ All classes developed using TDD.
 All the tests built using google tests and the function built like taught in class, red green refactoring.
 
 #### Michael
-I have worked on setting up the repositroy with the initial configuration files (namely `CMakeLists.txt`) and making sure everything works. After that, I have worked on reading, validating and parsing user input for the main loop, using the TDD methodology. First, I have written tests for the input-related functions using Google Test, then implemented function to pass those tests, and refactored those to be more generic and well-written. I later expanded my suite of functions to answer more specific needs, still using TDD.
+I have worked on setting up the repositroy with the initial configuration files (namely `CMakeLists.txt`) and making sure everything works. After that, I have worked on reading, parsing and validating user input for the main loop, using the TDD methodology. First, I have written tests for the input-related functions using Google Test, then implemented the functions to pass those tests, and refactored those to be more generic and well-written. I later expanded my suite of functions to answer more specific needs, still using TDD.
 
-After learning in class (pun not intended) that we are supposed to be using pure OOP, I started working on refactoring my code into OOP structures.
+After learning in class (pun not intended) that we are supposed to be using classes in pure OOP style, I started working on refactoring my code into OOP structures.
 
 *Note:* I tend to prefer working with git locally rather than using the web interface, which means that my merges won't show up in the commit history or on the Pull Requests list. However, I can proudly say that apart from the very first few commits intended to set up the environment, I have only worked using feature branches (except one commit to main, c61dcea, that deleted build-related files that were pushed erroneously).
 
