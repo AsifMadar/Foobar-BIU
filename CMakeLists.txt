@@ -17,6 +17,7 @@ enable_testing()
 set(MAIN_FILE src/main.cpp)
 set(SOURCE_FILES
 	src/App.cpp
+	src/Server.cpp
 	src/BloomFilter.cpp
 	src/HashFuncs.cpp
 	src/InStreamInput.cpp

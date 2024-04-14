@@ -3,8 +3,11 @@
 #include "./AddURLToBlacklist.h"
 #include "./App.h"
 #include "./CheckURLInBlacklist.h"
+#include "./Server.h"
 
 int main() {
+	runServer();
+	return 0;
 	InStreamInput userInput(std::cin);
 	AddURLToBlacklist action1{};
 	CheckURLInBlacklist action2(std::cout);
