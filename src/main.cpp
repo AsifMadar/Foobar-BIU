@@ -5,8 +5,13 @@
 #include "./CheckURLInBlacklist.h"
 #include "./Server.h"
 
+#define SERVER_PORT 5555
+#define SERVER_BUFFER_SIZE (1024 * 100)
+
 int main() {
-	runServer();
+	Server server(SERVER_PORT, SERVER_BUFFER_SIZE);
+	server.start();
+	server.stop();
 	return 0;
 	InStreamInput userInput(std::cin);
 	AddURLToBlacklist action1{};

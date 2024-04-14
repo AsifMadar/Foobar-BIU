@@ -7,4 +7,19 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-void runServer();
+class Server {
+	public:
+		Server(int port, int bufferSize);
+		~Server();
+		void start();
+		void stop();
+
+	private:
+		void handleConnection(int clientSocket);
+		void waitForConnection();
+
+		int bufferSize;
+		int port;
+		int socket;
+		struct sockaddr_in sin;
+};
