@@ -1,13 +1,3 @@
-#include <arpa/inet.h>
-#include <exception>
-#include <iostream>
-#include <netinet/in.h>
-#include <stdexcept>
-#include <stdio.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <thread>
-#include <unistd.h>
 #include "./Server.h"
 
 #define DEBUG 1
@@ -18,10 +8,19 @@
 /// @brief Creates a new Server instance
 /// @param port The port to listen on
 /// @param bufferSize The size of the buffer used for communicating with clients
-/// @param app An instance of `App` the server will pass requests to
-Server::Server(int port, int bufferSize, App& app): port(port), bufferSize(bufferSize), app(app) {
+/// @param appInfo A struct containing the app itself and ways to interact with it
+Server::Server(int port, int bufferSize, AppInfo appInfo): port(port), bufferSize(bufferSize), appInfo(appInfo) {
 	this->socket = ::socket(AF_INET, SOCK_STREAM, 0);
 	if (this->socket < 0) throw std::runtime_error("error creating socket");
+
+	const int enable = 1;
+	if (setsockopt(this->socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+		throw std::runtime_error("setsockopt(SO_REUSEADDR) failed");
+
+	#ifdef SO_REUSEPORT
+		if (setsockopt(this->socket, SOL_SOCKET, SO_REUSEPORT, &enable, sizeof(int)) < 0) 
+			throw std::runtime_error("setsockopt(SO_REUSEPORT) failed");
+	#endif
 
 	memset(&this->sin, 0, sizeof(this->sin));
 
@@ -68,30 +67,48 @@ void Server::waitForConnection() {
 /// @brief Handles the connection with a single client
 /// @param clientSocket The socket the client is connected on
 void Server::handleConnection(int clientSocket) {
-	char* buffer = new char[this->bufferSize];
-	int read_bytes = 0;
+	char* requestBuffer = new char[this->bufferSize];
+
 	do {
-		std::fill_n(buffer, this->bufferSize, 0);
-		read_bytes = recv(clientSocket, buffer, this->bufferSize, 0);
+		// Receive message from client
+		std::fill_n(requestBuffer, this->bufferSize, 0);
+		int msgLen = recv(clientSocket, requestBuffer, this->bufferSize, 0);
 
-		if (read_bytes == 0) break;
-		if (read_bytes < 0) throw std::runtime_error("error reading request");
+		if (msgLen == 0) break;
+		if (msgLen < 0) throw std::runtime_error("error reading request");
 
-		std::cout << "Client sent: " << buffer << std::endl;
+		std::cout << "Client sent: " << requestBuffer << std::endl;
 
 		#if (DEBUG == 1)
-			if (!strcmp(buffer, QUIT_COMMAND)) {
+			if (!strcmp(requestBuffer, QUIT_COMMAND)) {
 				std::cout << "Quit command received; Terminating program." << std::endl;
+				close(clientSocket);
 				this->stop();
-				std::terminate();
+				return std::terminate();
 			}
 		#endif
 
-		int sent_bytes = send(clientSocket, buffer, read_bytes, 0);
+		// Pass message to app
+		std::string responseStr;
+		this->appInfo.AppInStream.write(requestBuffer, msgLen);
+		std::unique_lock<std::mutex> lock(this->appInfo.mutex);
+		//lock.lock();
+		try {
+			this->appInfo.app.runNextIteration();
+			std::getline(this->appInfo.AppOutStream, responseStr);
+		} catch (const std::runtime_error& e) {
+			std::cout << "Error: " << e.what() << ". ";
+			responseStr = "Invalid input";
+		}
+		std::cout << std::endl;
+		//lock.unlock();
+
+		// Respond to client with the result
+		int sent_bytes = send(clientSocket, responseStr.c_str(), responseStr.length(), 0);
 		if (sent_bytes < 0) throw std::runtime_error("error sending to client");
 	} while (true);
 
-	delete [] buffer;
+	delete [] requestBuffer;
 
 	close(clientSocket);
 }

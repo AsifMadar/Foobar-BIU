@@ -1,8 +1,8 @@
+#include <ostream>
 #include <string>
-#include "FalsePositiveCheck.h"
-#include "BloomFilter.h"
-#include "CheckURLInBlacklist.h"
-#include <iostream>
+#include "./BloomFilter.h"
+#include "./CheckURLInBlacklist.h"
+#include "./FalsePositiveCheck.h"
 
 /// @param outStream The stream to write output into
 CheckURLInBlacklist::CheckURLInBlacklist(std::ostream& outStream): outStream(outStream) {};

@@ -1,9 +1,9 @@
 #pragma once
-#include <iostream>
+#include <istream>
 #include <sstream>
 #include <string>
 #include <vector>
-#include "IUserInput.h"
+#include "./IUserInput.h"
 
 class InStreamInput: public IUserInput {
 	public:

@@ -2,8 +2,9 @@
 #include <stdexcept>
 #include <vector>
 #include "../src/App.h"
-#include "../src/IAction.h"
 #include "../src/FalsePositiveCheck.h"
+#include "../src/IAction.h"
+#include "../src/InStreamInput.h"
 
 class TestAction: public IAction {
 	public:
