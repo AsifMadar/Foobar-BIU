@@ -43,7 +43,10 @@ void App::createBloomFilter() {
 
 /// @brief Runs the next iteration of the main program loop
 void App::runNextIteration() {
-	if (this->bloomFilter == nullptr) this->createBloomFilter();
+	if (this->bloomFilter == nullptr) {
+		this->createBloomFilter();
+		return;
+	}
 
 	int actionNumber;
 	std::string url;

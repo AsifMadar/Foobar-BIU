@@ -10,9 +10,11 @@
 /// @param bufferSize The size of the buffer used for communicating with clients
 /// @param appInfo A struct containing the app itself and ways to interact with it
 Server::Server(int port, int bufferSize, AppInfo appInfo): port(port), bufferSize(bufferSize), appInfo(appInfo) {
+	// Create socket
 	this->socket = ::socket(AF_INET, SOCK_STREAM, 0);
 	if (this->socket < 0) throw std::runtime_error("error creating socket");
 
+	// Allow reusing the socket
 	const int enable = 1;
 	if (setsockopt(this->socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
 		throw std::runtime_error("setsockopt(SO_REUSEADDR) failed");
@@ -22,8 +24,8 @@ Server::Server(int port, int bufferSize, AppInfo appInfo): port(port), bufferSiz
 			throw std::runtime_error("setsockopt(SO_REUSEPORT) failed");
 	#endif
 
+	// Initialize `sin` info
 	memset(&this->sin, 0, sizeof(this->sin));
-
 	this->sin.sin_family = AF_INET;
 	this->sin.sin_addr.s_addr = INADDR_ANY;
 	this->sin.sin_port = htons(this->port);
@@ -88,22 +90,29 @@ void Server::handleConnection(int clientSocket) {
 			}
 		#endif
 
-		// Pass message to app
-		std::string responseStr;
+		// Prepare the input for the app
+		this->appInfo.AppInStream.str("");
+		this->appInfo.AppInStream.clear();
 		this->appInfo.AppInStream.write(requestBuffer, msgLen);
+		this->appInfo.AppOutStream.str("");
+		this->appInfo.AppOutStream.clear();
+		std::string responseStr;
+
+		// Pass message to app
 		std::unique_lock<std::mutex> lock(this->appInfo.mutex);
 		//lock.lock();
 		try {
 			this->appInfo.app.runNextIteration();
 			std::getline(this->appInfo.AppOutStream, responseStr);
 		} catch (const std::runtime_error& e) {
-			std::cout << "Error: " << e.what() << ". ";
-			responseStr = "Invalid input";
+			responseStr = e.what();
+			std::cout << "Error: " << responseStr << ".";
 		}
 		std::cout << std::endl;
 		//lock.unlock();
 
 		// Respond to client with the result
+		if (responseStr.length() == 0) responseStr = "OK";
 		int sent_bytes = send(clientSocket, responseStr.c_str(), responseStr.length(), 0);
 		if (sent_bytes < 0) throw std::runtime_error("error sending to client");
 	} while (true);

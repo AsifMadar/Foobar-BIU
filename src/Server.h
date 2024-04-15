@@ -1,10 +1,9 @@
 #include <arpa/inet.h>
 #include <exception>
 #include <iostream>
-#include <istream>
 #include <mutex>
 #include <netinet/in.h>
-#include <ostream>
+#include <sstream>
 #include <stdexcept>
 #include <stdio.h>
 #include <string.h>
@@ -18,7 +17,7 @@ class Server {
 	public:
 		class AppInfo {
 			public:
-				AppInfo(App& app, std::ostream& AppInStream, std::istream& AppOutStream):
+				AppInfo(App& app, std::stringstream& AppInStream, std::stringstream& AppOutStream):
 					app(app), AppInStream(AppInStream), AppOutStream(AppOutStream) {};
 				AppInfo(const AppInfo& other):
 					app(other.app), AppInStream(other.AppInStream), AppOutStream(other.AppOutStream) {};
@@ -28,9 +27,9 @@ class Server {
 			private:
 				App& app;
 				/// The stream that goes *into* `app` is an *out* stream from the server perspective
-				std::ostream& AppInStream;
+				std::stringstream& AppInStream;
 				/// The stream that goes *out* of `app` is an *in* stream from the server perspective
-				std::istream& AppOutStream;
+				std::stringstream& AppOutStream;
 				std::mutex mutex{};
 		};
 
