@@ -90,6 +90,10 @@ void Server::handleConnection(int clientSocket) {
 			}
 		#endif
 
+		// Acquire a lock on the app and its streams
+		std::unique_lock<std::mutex> lock(this->appInfo.mutex, std::defer_lock);
+		lock.lock();
+
 		// Prepare the input for the app
 		this->appInfo.AppInStream.str("");
 		this->appInfo.AppInStream.clear();
@@ -99,17 +103,16 @@ void Server::handleConnection(int clientSocket) {
 		std::string responseStr;
 
 		// Pass message to app
-		std::unique_lock<std::mutex> lock(this->appInfo.mutex);
-		//lock.lock();
 		try {
 			this->appInfo.app.runNextIteration();
 			std::getline(this->appInfo.AppOutStream, responseStr);
 		} catch (const std::runtime_error& e) {
 			responseStr = e.what();
-			std::cout << "Error: " << responseStr << ".";
+			std::cout << "Error: " << responseStr << "." << std::endl;
 		}
-		std::cout << std::endl;
-		//lock.unlock();
+
+		// Release the lock on the app and its streams
+		lock.unlock();
 
 		// Respond to client with the result
 		if (responseStr.length() == 0) responseStr = "OK";
