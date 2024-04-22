@@ -2,8 +2,9 @@
 #include <stdexcept>
 #include <vector>
 #include "../src/App.h"
-#include "../src/IAction.h"
 #include "../src/FalsePositiveCheck.h"
+#include "../src/IAction.h"
+#include "../src/InStreamInput.h"
 
 class TestAction: public IAction {
 	public:
@@ -39,13 +40,15 @@ TEST(AppTest, runNextIteration) {
 	std::istringstream dummyIStream("8 2\n1 www.example.com");
 	InStreamInput userInput(dummyIStream);
 	App app(&userInput, actions, 2);
-	EXPECT_NO_THROW(app.runNextIteration());
+	EXPECT_NO_THROW(app.runNextIteration()); // Load settings
+	EXPECT_NO_THROW(app.runNextIteration()); // Execute action #1
 	EXPECT_THROW(app.runNextIteration(), std::runtime_error); // Out of input
 
 	std::istringstream dummyIStream2("8 1 2\n1 www.example.com\n2 www.example.com");
 	InStreamInput userInput2(dummyIStream2);
 	App app2(&userInput2, actions, 2);
-	EXPECT_NO_THROW(app2.runNextIteration());
-	EXPECT_NO_THROW(app2.runNextIteration());
+	EXPECT_NO_THROW(app2.runNextIteration()); // Load settings
+	EXPECT_NO_THROW(app2.runNextIteration()); // Execute action #1
+	EXPECT_NO_THROW(app2.runNextIteration()); // Execute action #2
 	EXPECT_THROW(app2.runNextIteration(), std::runtime_error);
 }

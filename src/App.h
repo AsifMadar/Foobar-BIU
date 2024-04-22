@@ -1,5 +1,5 @@
+#pragma once
 #include <functional>
-#include <iostream>
 #include <map>
 #include <stdexcept>
 #include <string>
@@ -8,7 +8,6 @@
 #include "./FalsePositiveCheck.h"
 #include "./HashFuncs.h"
 #include "./IAction.h"
-#include "./InStreamInput.h"
 #include "./IUserInput.h"
 
 class App {

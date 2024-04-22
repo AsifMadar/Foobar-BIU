@@ -1,5 +1,8 @@
 # Foobar-BIU
 
+## Part 4
+This is the branch for part 4 of the project. If you are looking for the branch of **part 1**, please go to the [part1](https://github.com/AsifMadar/Foobar-BIU/tree/part1) or [main](https://github.com/AsifMadar/Foobar-BIU/tree/main) branches (they are identical, really).
+
 ## Compiling and Running
 To locally run the program, you first need to setup your environment. Make sure you are in the root directory of the project, and run the following commands (assuming you are on Linux):
 ```bash
@@ -10,7 +13,10 @@ cmake -B build -S .
 
 Afterwards, you can compile the program by executing `cmake --build build`
 
-Finally, run the program using `./build/Foobar`
+Finally, run the server using `./build/Foobar`.
+
+### Changing the port
+By default, the server runs on port `5555`. To change the port used by the server, modify the `SERVER_PORT` define in `src/main.cpp` and recompile the program (run `cmake --build build` again).
 
 ## Workflow
 We worked together to convert the instructions into tasks in Jira, then we put them into relevent epics and decided on how we split the work.
