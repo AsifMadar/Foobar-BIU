@@ -1,6 +1,6 @@
 #include "./Server.h"
 
-#define DEBUG 1
+#define DEBUG 0
 #if (DEBUG == 1)
 #define QUIT_COMMAND "!quit"
 #endif
