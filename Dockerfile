@@ -9,6 +9,7 @@ COPY . .
 
 # Compile the C++ code
 RUN apt-get update; apt-get install -y build-essential cmake libgtest-dev
+RUN rm -r build
 RUN cmake -B build -S .
 RUN cmake --build build
 
