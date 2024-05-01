@@ -1,9 +1,19 @@
 # Foobar-BIU
 
-## Part 4
-This is the branch for part 4 of the project. If you are looking for the branch of **part 1**, please go to the [part1](https://github.com/AsifMadar/Foobar-BIU/tree/part1) or [main](https://github.com/AsifMadar/Foobar-BIU/tree/main) branches (they are identical, really).
+## Wiki
+This readme file covers the technical aspects of the project. For extensive documentation of all features, including screenshots, refer to [the wiki](https://github.com/michaelts1/Foobar-BIU-mobile/wiki).
 
-## Compiling and Running
+## Part 4
+This is the branch for **part 4** of the project.
+* The code for **part 1** can be found on the branch [part1](https://github.com/AsifMadar/Foobar-BIU/tree/part1).
+
+## Links to all repositories
+* https://github.com/AsifMadar/Foobar-BIU - The repository for the bloom filter
+* https://github.com/michaelts1/Foobar-BIU-backend - The repository for the Social App backend server
+* https://github.com/michaelts1/Foobar-BIU-mobile - The repository for the Social App Android application
+* https://github.com/michaelts1/Foobar-BIU-web - The repository for the Social App web application
+
+## Running this project
 To locally run the program, you first need to setup your environment. Make sure you are in the root directory of the project, and run the following commands (assuming you are on Linux):
 ```bash
 sudo apt-get update;
