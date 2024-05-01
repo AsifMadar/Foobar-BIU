@@ -18,6 +18,9 @@ Finally, run the server using `./build/Foobar`.
 ### Changing the port
 By default, the server runs on port `5555`. To change the port used by the server, modify the `SERVER_PORT` define in `src/main.cpp` and recompile the program (run `cmake --build build` again).
 
+## Building and running on Docker
+To run the program using docker, first build the docker image using `docker build -t foobar-biu . -f DockerFile`, then run the container using `docker run -p 5555:5555 -it foobar-biu` (if you changed the port of the server, replace `5555` in this command with the new port).
+
 ## Workflow
 We worked together to convert the instructions into tasks in Jira, then we put them into relevent epics and decided on how we split the work.
 
